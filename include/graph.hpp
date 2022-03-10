@@ -16,7 +16,6 @@ template<class T>
 class Graph {
 	public:
 		Graph();
-		void insert_node(T node);
 
 		void create_edge(T from, T to);
 		void create_undirected_edge(T a, T b);
@@ -37,12 +36,6 @@ class Graph {
 
 template<class T>
 Graph<T>::Graph(){};
-
-template<class T>
-void Graph<T>::insert_node(T node){
-	vector<T> v;
-	graph[node] = v;
-}
 
 template<class T>
 void Graph<T>::create_edge(T from, T to){
