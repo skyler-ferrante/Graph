@@ -4,20 +4,37 @@
 
 #include <graph.hpp>
 
-
 using std::vector;
 using std::string;
 using std::cerr;
 using std::cout;
 using std::endl;
 
-void test_insert(){
-	Graph<int> g1;
+void test_insert();
+void test_create_edge();
+void test_get_edges();
+void test_bfs();
 
+int main(int argc, char** argv){
+	test_insert();
+	test_create_edge();
+	test_get_edges();
+	test_bfs();
+
+	cout << "Tests passed" << std::endl;
+	return 0;
+}
+
+void test_insert(){
+	// Test inserting without doing anything
+
+	// Testing insert numbers
+	Graph<int> g1;
 	for(int i = 0; i < 1000; i++){
 		g1.insert_node(i);
 	}
 
+	// Testing insert strings
 	Graph<string> g2;
 	g2.insert_node("Test");
 	g2.insert_node("Test2");
@@ -25,15 +42,21 @@ void test_insert(){
 }
 
 void test_create_edge(){
+	// Test create edges without checking anything
+	// Creating edges of undefined keys defines them
+		
 	Graph<int> g1;
 
 	for(int i = 0; i < 1000; i++){
 		g1.insert_node(i);
-		g1.create_edge(i-1, i);
+		g1.create_edge(i-1, i);	
+		g1.create_edge(i-2, i);
 	}
 }
 
 void test_get_edges(){
+	// Test get edges by creating edges and checking for them
+	
 	int amount = 1000;
 	Graph<int> g1;
 
@@ -57,6 +80,8 @@ void test_get_edges(){
 }
 
 void test_bfs(){
+	// Test breadth first search
+	
 	Graph<int> g1;
 
 	g1.create_undirected_edge(1, 2);
@@ -81,14 +106,4 @@ void test_bfs(){
 	vector<int> given_path = g1.bfs(1,11);
 
 	assert( correct_path == given_path );
-}
-
-int main(int argc, char** argv){
-	test_insert();
-	test_create_edge();
-	test_get_edges();
-	test_bfs();
-
-	cout << "Tests passed" << std::endl;
-	return 0;
 }

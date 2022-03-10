@@ -28,6 +28,7 @@ class Graph {
 		vector<T> bfs(T root, T goal);
 
 	private:
+		// Hash map of nodes to edges
 		unordered_map<T, vector<T>> graph;
 };
 
@@ -35,9 +36,7 @@ class Graph {
 // See: https://stackoverflow.com/questions/8752837/undefined-reference-to-template-class-constructor
 
 template<class T>
-Graph<T>::Graph(){
-	;
-};
+Graph<T>::Graph(){};
 
 template<class T>
 void Graph<T>::insert_node(T node){
@@ -95,7 +94,8 @@ vector<T> Graph<T>::bfs(T root, T goal){
 
 		for( T edge : get_edges(current) ){
 
-			if( s.find(edge) == s.end() ){ //Edge not in set
+			// If edge not in set
+			if( s.find(edge) == s.end() ){
 				vector<T> new_path {path};
 				new_path.push_back(edge);
 				
