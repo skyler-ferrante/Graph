@@ -2,7 +2,9 @@
 #define GRAPH_H
 
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
+#include <list>
 
 using std::unordered_map;
 using std::vector;
@@ -22,6 +24,8 @@ class Graph {
 		vector<T> get_edges(T node);
 
 		void print_nodes();
+
+		vector<T> bfs(T root, T goal);
 
 	private:
 		unordered_map<T, vector<T>> graph;
@@ -69,8 +73,40 @@ void Graph<T>::print_nodes(){
 	
 }
 
-//template<class T>
-//void Graph<T>::bfs(T root, T goal){
-//	std::queue<T>
+template<class T>
+vector<T> Graph<T>::bfs(T root, T goal){
+	std::unordered_set<T> s;
+	std::list< vector<T> > q;
+
+	s.insert(root);
+	q.push_back( {root} );
+	
+	T current;
+
+	while( not q.empty() ){
+		vector<T> path = q.front();	
+		q.pop_front();
+
+		current = path.back();
+
+		if( current == goal ){
+			return path;
+		}
+
+		for( T edge : get_edges(current) ){
+
+			if( s.find(edge) == s.end() ){ //Edge not in set
+				vector<T> new_path {path};
+				new_path.push_back(edge);
+				
+				s.insert(edge);
+				q.push_back( new_path);
+			}
+		}
+	}
+
+	vector<T> empty;
+	return empty;
+}
 
 #endif
