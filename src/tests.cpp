@@ -4,7 +4,7 @@
 
 #include <graph.hpp>
 
-#define HIGH_AMOUNT 1000000
+#define HIGH_AMOUNT 1000
 #define LOW_AMOUNT 0
 
 using std::vector;

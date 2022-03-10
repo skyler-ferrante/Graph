@@ -7,7 +7,9 @@
 #include <list>
 
 using std::unordered_map;
+using std::unordered_set;
 using std::vector;
+using std::list;
 
 using std::cout;
 using std::endl;
@@ -17,13 +19,19 @@ class Graph {
 	public:
 		Graph();
 
+		// Create directed edge from first to second parameter
 		void create_edge(T from, T to);
+
+		// Create undirected edge from first to second parameter
 		void create_undirected_edge(T a, T b);
 
+		// Get edges of given node
 		vector<T> get_edges(T node);
 
+		// Print representation of graph to stdout
 		void print_nodes();
 
+		// Breadth first search
 		vector<T> bfs(T root, T goal);
 
 	private:
@@ -67,8 +75,8 @@ void Graph<T>::print_nodes(){
 
 template<class T>
 vector<T> Graph<T>::bfs(T root, T goal){
-	std::unordered_set<T> s;
-	std::list< vector<T> > q;
+	unordered_set<T> s;
+	list< vector<T> > q;
 
 	s.insert(root);
 	q.push_back( {root} );
