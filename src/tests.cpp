@@ -4,58 +4,62 @@
 
 #include <graph.hpp>
 
+#define HIGH_AMOUNT 1000000
+#define LOW_AMOUNT 0
+
 using std::vector;
 using std::string;
 using std::cout;
 using std::endl;
 
-void test_create_edge();
-void test_get_edges();
+void test_create_edge(int amount);
+void test_get_edges(int amount);
 void test_bfs();
 
 int main(int argc, char** argv){
-	test_create_edge();
-	test_get_edges();
+	test_create_edge(HIGH_AMOUNT);
+	test_create_edge(LOW_AMOUNT);
+
+	test_get_edges(HIGH_AMOUNT);
+	test_get_edges(LOW_AMOUNT);
+
 	test_bfs();
 
 	cout << "Tests passed" << endl;
 	return 0;
 }
 
-void test_create_edge(){
+void test_create_edge(int amount){
 	// Test create edges without checking anything
 	// Creating edges of undefined keys defines them
 		
 	Graph<int> g1;
 
-	for(int i = 0; i < 1000; i++){
+	for(int i = 0; i < amount; i++){
 		g1.create_edge(i-1, i);	
 		g1.create_edge(i-2, i);
 	}
 }
 
-void test_get_edges(){
+void test_get_edges(int amount){
 	// Test get edges by creating edges and checking for them
 	
-	int amount = 1000;
 	Graph<int> g1;
 
-	for(int i = 1; i < amount; i++){
-		g1.create_undirected_edge(0, i);
-	}
-	
-	int x = 1;
-	for( auto a : g1.get_edges(0) ){
-		assert( x == a );
-		x++;
-	}
-	
-	for(int i = 1; i < amount; i++){
-		vector<int> v = g1.get_edges(i);
+	vector<int> correct_edges(amount);
 
-		assert( v.size() == 1 );
-		assert( v[0] == 0 );
+	for(int i = 0; i < amount; i++){
+		correct_edges[i] = i;
+		g1.create_edge(0, i);
 	}
+	
+	assert( correct_edges == g1.get_edges(0));
+	assert( vector<int>{} == g1.get_edges(1));
+	
+	g1.create_undirected_edge(2,3);
+
+	assert( vector<int>{2} == g1.get_edges(3));
+	assert( vector<int>{3} == g1.get_edges(2));
 }
 
 void test_bfs(){
@@ -81,6 +85,8 @@ void test_bfs(){
 
 	g1.create_undirected_edge(8, 12);
 	
+	g1.create_undirected_edge(800, 799);
+
 	// Possible path
 	vector<int> correct_path = {1,4,7,11};
 	vector<int> given_path = g1.bfs(1,11);
