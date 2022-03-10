@@ -102,8 +102,23 @@ void test_bfs(){
 
 	g1.create_undirected_edge(8, 12);
 	
+	// Possible path
 	vector<int> correct_path = {1,4,7,11};
 	vector<int> given_path = g1.bfs(1,11);
 
+	assert( correct_path == given_path );
+
+	// Not possible path
+	correct_path = {};
+	given_path = g1.bfs(0,800);
+	
+	assert( correct_path == given_path ); 
+
+	// Empty graph
+	Graph<int> g2;
+	
+	correct_path = {};
+	given_path = g2.bfs(0,10);
+	
 	assert( correct_path == given_path );
 }
